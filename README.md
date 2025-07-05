@@ -1,18 +1,23 @@
+# pi-gen-ng
+
+This is modified version of original [RPI-Distro/pi-gen](https://github.com/RPI-Distro/pi-gen.git)
+
+Changes are:
+
+- Debian 13 Trixie as a base
+- Root partition with XFS filesystem
+- `arm64` as main and only target architecture
+- Added aliases for stages (`STAGE_LIST='lite'` = `STAGE_LIST=''` and `STAGE_LIST=''` = `STAGE_LIST=''`)
+- Cleaned deprecated options
+
 # pi-gen
 
 Tool used to create Raspberry Pi OS images, and custom images based on Raspberry Pi OS,
 which was in turn derived from the Raspbian project.
 
-**Note**: Raspberry Pi OS 32 bit images are based primarily on Raspbian, while
-Raspberry Pi OS 64 bit images are based primarily on Debian.
-
-**Note**: 32 bit images should be built from the `master` branch.
-64 bit images should be built from the `arm64` branch.
-
 ## Dependencies
 
-pi-gen runs on Debian-based operating systems released after 2017, and we
-always advise you use the latest OS for security reasons.
+pi-gen runs on Debian 13 ("Trixie") and ARM64 hardware.
 
 On other Linux distributions it may be possible to use the Docker build described
 below.
@@ -22,7 +27,7 @@ To install the required dependencies for `pi-gen` you should run:
 ```bash
 apt-get install coreutils quilt parted qemu-user-static debootstrap zerofree zip \
 dosfstools libarchive-tools libcap2-bin grep rsync xz-utils file git curl bc \
-gpg pigz xxd arch-test bmap-tools
+gpg pigz xxd arch-test bmap-tools xfsprogs
 ```
 
 The file `depends` contains a list of tools needed.  The format of this
@@ -34,7 +39,7 @@ Getting started is as simple as cloning this repository on your build machine. Y
 can do so with:
 
 ```bash
-git clone https://github.com/RPI-Distro/pi-gen.git
+git clone https://github.com/OlehAhieienko/pi-gen-ng.git
 ```
 
 `--depth 1` can be added after `git clone` to create a shallow clone, only containing
@@ -55,7 +60,7 @@ environment variables.
 
 The following environment variables are supported:
 
- * `IMG_NAME` (Default: `raspios-$RELEASE-$ARCH`, for example: `raspios-bookworm-armhf`)
+ * `IMG_NAME` (Default: `raspios-$RELEASE-$ARCH`, for example: `raspios-trixie-arm64`)
 
    The name of the image to build with the current stage directories. Use this
    variable to set the root name of your OS, eg `IMG_NAME=Frobulator`.
@@ -66,7 +71,7 @@ The following environment variables are supported:
    The release name to use in `/etc/issue.txt`. The default should only be used
    for official Raspberry Pi builds.
 
-* `RELEASE` (Default: `bookworm`)
+* `RELEASE` (Default: `trixie`)
 
    The release version to build images against. Valid values are any supported
    Debian release. However, since different releases will have different sets of
@@ -115,14 +120,6 @@ The following environment variables are supported:
    * `zip` to deploy a zipped image (`.zip`).
    * `gz` to deploy a gzipped image (`.img.gz`).
    * `xz` to deploy a xzipped image (`.img.xz`).
-
-
- * `DEPLOY_ZIP` (Deprecated)
-
-   This option has been deprecated in favor of `DEPLOY_COMPRESSION`.
-
-   If `DEPLOY_ZIP=0` is still present in your config file, the behavior is the
-   same as with `DEPLOY_COMPRESSION=none`.
 
  * `COMPRESSION_LEVEL` (Default: `6`)
 
@@ -417,21 +414,6 @@ follows:
    export your image to test
 
 # Troubleshooting
-
-## `64 Bit Systems`
-A 64 bit image can be generated from the `arm64` branch in this repository. Just
-replace the command from [this section](#getting-started-with-building-your-images)
-by the one below, and follow the rest of the documentation:
-```bash
-git clone --branch arm64 https://github.com/RPI-Distro/pi-gen.git
-```
-
-If you want to generate a 64 bits image from a Raspberry Pi running a 32 bits
-version, you need to add `arm_64bit=1` to your `config.txt` file and reboot your
-machine. This will restart your machine with a 64 bits kernel. This will only
-work from a Raspberry Pi with a 64-bit capable processor (i.e. Raspberry Pi Zero
-2, Raspberry Pi 3 or Raspberry Pi 4).
-
 
 ## `binfmt_misc`
 

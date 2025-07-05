@@ -176,7 +176,7 @@ export PI_GEN_REPO=${PI_GEN_REPO:-https://github.com/RPi-Distro/pi-gen}
 export PI_GEN_RELEASE=${PI_GEN_RELEASE:-Raspberry Pi reference}
 
 export ARCH=armhf
-export RELEASE=${RELEASE:-bookworm} # Don't forget to update stage0/prerun.sh
+export RELEASE=${RELEASE:-trixie} # Don't forget to update stage0/prerun.sh
 export IMG_NAME="${IMG_NAME:-raspios-$RELEASE-$ARCH}"
 
 export USE_QEMU="${USE_QEMU:-0}"
@@ -188,14 +188,6 @@ export SCRIPT_DIR="${BASE_DIR}/scripts"
 export WORK_DIR="${WORK_DIR:-"${BASE_DIR}/work/${IMG_NAME}"}"
 export DEPLOY_DIR=${DEPLOY_DIR:-"${BASE_DIR}/deploy"}
 
-# DEPLOY_ZIP was deprecated in favor of DEPLOY_COMPRESSION
-# This preserve the old behavior with DEPLOY_ZIP=0 where no archive was created
-if [ -z "${DEPLOY_COMPRESSION}" ] && [ "${DEPLOY_ZIP:-1}" = "0" ]; then
-	echo "DEPLOY_ZIP has been deprecated in favor of DEPLOY_COMPRESSION"
-	echo "Similar behavior to DEPLOY_ZIP=0 can be obtained with DEPLOY_COMPRESSION=none"
-	echo "Please update your config file"
-	DEPLOY_COMPRESSION=none
-fi
 export DEPLOY_COMPRESSION=${DEPLOY_COMPRESSION:-zip}
 export COMPRESSION_LEVEL=${COMPRESSION_LEVEL:-6}
 export LOG_FILE="${WORK_DIR}/build.log"

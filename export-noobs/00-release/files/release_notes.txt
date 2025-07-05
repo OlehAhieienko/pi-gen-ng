@@ -1,5 +1,8 @@
 UNRELEASED:
-  *
+  * Based on Debian trixie release
+  * XFS as root filesystem
+  * Raspberry Pi firmware xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  * Linux kernel 6.12.xx - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 2025-05-13:
   * Setting touchscreen in Screen Configuration does not delete default associations for greeter
   * Bug fix - wizard keyboard setting correctly transferred into desktop
