@@ -1,6 +1,6 @@
 IMG_NAME='raspios'
 #PI_GEN_RELEASE='Custom Raspberry Pi OS'
-#RELEASE='bookworm'
+#RELEASE='trixie'
 #APT_PROXY=
 #TEMP_REPO=
 #BASE_DIR=
