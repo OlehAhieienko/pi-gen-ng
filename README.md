@@ -7,7 +7,7 @@ Changes are:
 - Debian 13 Trixie as a base
 - Root partition with XFS filesystem
 - `arm64` as main and only target architecture
-- Added aliases for stages (`STAGE_LIST='lite'` = `STAGE_LIST=''` and `STAGE_LIST=''` = `STAGE_LIST=''`)
+- Added aliases for stages (`STAGE_LIST='_lite'`, `STAGE_LIST='_desktop'` and `STAGE_LIST='_full'`)
 - Cleaned deprecated options
 
 # pi-gen
